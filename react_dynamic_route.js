@@ -24,7 +24,7 @@ const categories = [
         {match.isExact && (
           <>
             <h1>{category.title}</h1>
-            {/* {category.subcategories.map(subCategoryId => {
+            {category.subcategories.map(subCategoryId => {
               return (
                 <div>
                   <Link key={subCategoryId} to={`${match.url}/${subCategoryId}`}>
@@ -35,7 +35,7 @@ const categories = [
             })}
             {category.id === 7 && (
               <img src="https://cataas.com/cat" alt="cat" height="300" />
-            )} */}
+            )}
           </>
         )}
         {/* <Switch>
@@ -45,6 +45,20 @@ const categories = [
     );
   };
   
+// My simpler example with undefined page scenerio
+const Dyn = ({ match }) => {
+    const category = categories.find(category => {
+      return parseInt(match.params.schId) === category.id;
+    });
+    if(!category) return (<h1>Page not found</h1>)
+  
+    return (
+      <>
+        {match.isExact && ( <h1>{category.title}</h1> )}
+      </>
+    );
+  };
+
   export const RoutingExample = () => {
     return (
       <Switch>
