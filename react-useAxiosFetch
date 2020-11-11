@@ -1,0 +1,28 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const useAxiosFetch = (url) => {
+
+  const [data, setData] = useState("");
+  
+  useEffect(() => {
+    let loading = true;
+    const abortController = new AbortController();
+    (async () => {
+      const res = await axios.fetch(url, {
+        signal: abortController.signal,
+        config: 'other configuration here'
+      });
+      const data = await res.json();
+      if (loading) setData(data);
+    })();
+
+    return ( () => {
+      loading = false;
+      abortController.abort();
+   }) ();;
+  }, []);
+  // }, [url]);
+
+  return data;
+};
