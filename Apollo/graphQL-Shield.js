@@ -1,43 +1,3 @@
-////////////////// creating the Model   //////////////////////
-
-//# database/datamodel.graphql
-`
-type Grocer {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  email: String! @unique
-}
-
-type Customer {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  email: String! @unique
-  basket: [BasketItem!]!
-}
-
-type BasketItem {
-  id: ID! @unique
-  product: Product!
-  quantity: Int!
-}
-
-type Product {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  name: String!
-  description: String!
-  price: Int!
-}
-`
-
-
-
 /////////////// Creating the schema  ////////////////////
 
 
@@ -62,11 +22,7 @@ type Viewer {
 }
 `
 
-
-
 ///////////////// Creating rules   ////////////////////////
-
-
 
 // src/permissions/rules.ts
 import { rule, and, or, not } from 'graphql-shield'
@@ -114,24 +70,3 @@ export const permissions = shield({
   },
 })
 
-// src/index.ts
-import { permissions } from './permissions'
-
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  middlewares: [permissions],
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      endpoint: process.env.PRISMA_ENDPOINT,
-      debug: false,
-      secret: process.env.PRISMA_SECRET,
-    }),
-  }),
-})
-server.start(() => console.log(`Server is running on http://localhost:4000`))
-
-
-
-////////////// with apollo server /////////////////////
