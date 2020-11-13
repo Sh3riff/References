@@ -1,0 +1,141 @@
+const typeDefs = gql``;
+
+#Supported types
+    - Scalar types i.e Int, Float, Boolean, Id, String
+
+    - Object types i.e
+        type AnyName {
+            field: type
+            name: string i.e name of type string
+        }
+
+    - The Query type // A reserved type containing all entry points for read operations
+        type Query {
+            field: type 
+            books: [Books] i.e array of type value
+        }
+
+    - The Mutation type // A reserved type containing all entry points for write operations
+        type Mutation {
+            addBook(title: String, author: String): Book
+        }
+
+    - Input types  //special object types that allow you to pass objects as arguments to queries and mutations
+        input Details {
+            title: String
+            body: String
+        }
+        Hence;
+            type Mutation {
+                addBook(params: Details): Book
+            }
+
+
+#Growing with a schema
+    - As schema Evolve, maintain your schema's definition in version control.
+    - You may Add to schema
+    - Do not:
+        - Removing a type or field
+        - Renaming a type or field
+        - Adding nullability to a field
+        - Removing a field's arguments
+
+
+#Naming conventions
+    - Field names should use camelCase.
+    - Type names should use PascalCase.
+    - Enum names should use PascalCase.
+    - Enum values should use ALL_CAPS.
+
+
+#Query-driven schema design
+
+#Designing mutations
+    - it's recommended for every mutation's response to include the data that the mutation modified. i.e
+    
+    type Mutation {
+        updateUserEmail(id: ID!, email: String!): User //updated under '#Structuring mutation responses'
+    }
+
+    type User {
+    id: ID!
+    name: String!
+    email: String!
+    }
+
+    Hence,
+        mutation updateMyUser {
+            updateUserEmail(id: 1, email: "jane@example.com"){
+                id
+                name
+                email
+            }
+        }
+
+
+#Structuring mutation responses
+    - Defining a MutationResponse interface in your schema
+   
+    interface MutationResponse {
+        code: String!
+        success: Boolean!
+        message: String!
+    }
+
+    type UpdateUserEmailMutationResponse implements MutationResponse {
+        code: String!
+        success: Boolean!
+        message: String!
+        user: User
+    }
+
+    - Our updateUserEmail mutation would specify UpdateUserEmailMutationResponse as its return type (instead of User).
+    - Mutation may also contain multiple types i.email
+
+        type UpdateMultiType implements MutationResponse {
+        code: String!
+        success: Boolean!
+        message: String!
+        user: User
+        newType: newType
+    }
+
+
+# Custom scalars and enums ... Docs
+
+# Unions and interfaces ... Docs
+
+#schema directives ... Docs
+
+
+
+#Resolvers
+    const resolvers = {
+        Query: {
+            user(parent, args, context, info) {
+            return users.find(user => user.id === args.id);
+            }
+        }
+    }
+    - Context
+        const server = new ApolloServer({
+            typeDefs,
+            resolvers,
+            context: ({ req }) => ({
+                authScope: getScope(req.headers.authorization)
+            })
+        }));
+
+        (parent, args, context, info) => {
+            if(context.authScope !== ADMIN) throw AuthenticationError('not admin');
+            // Proceed
+        }
+
+        context: async () => ({
+            db: await client.connect(),
+        })
+
+        // Resolver
+            (parent, args, context, info) => {
+            return context.db.query('SELECT * FROM table_name');
+        }
