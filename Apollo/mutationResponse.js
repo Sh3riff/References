@@ -1,6 +1,3 @@
-example.split(",");
-Object.entries().length
-
 interface MutationResponse {
     code: String!
     success: Boolean!
