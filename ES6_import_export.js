@@ -15,6 +15,7 @@ import * as MainComponents from "./MyComponent";
 export const MyComponent = () => {}
 export const MyComponent2 = () => {}
 
+
 ///////////////// DEFAULT EXPORT //////////////
 
 // import
@@ -22,3 +23,12 @@ import MyDefaultComponent from "./MyDefaultExport";
 // export
 const MyComponent = () => {}
 export default MyComponent;
+
+
+///////////////// COMPARE //////////////
+
+  - import X from "./x"                       => const X = require("./x")
+  - import {X} from "./x"                     => const {X} = require("./x")
+  - export { default as X } from './x';       => exports.X = require('./x');
+  - export default X                          => module.exports = X
+  - export const X =  {}                      => module.exports.X = {}
