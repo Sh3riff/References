@@ -1,0 +1,30 @@
+//////////// JavaScript //////////////////
+
+for(let i = array.length — 1; i > 0; i--){
+  const j = Math.floor(Math.random() * i)
+  const temp = array[i]
+  array[i] = array[j]
+  array[j] = temp
+}
+
+N.B:  array.sort(function (a, b) { return 0.5 — Math.random() }) // is not exactly random
+
+
+//////////// LOGIC //////////////////
+
+— To shuffle an array a of n elements (indices 0..n-1):
+for i from n−1 downto 1 do
+ j ← random integer such that 0 ≤ j ≤ i
+ exchange a[j] and a[i]
+ 
+ 
+ The Correct Way — Fisher-Yates Algorithm
+Shuffling an array of values is one of the oldest problems in computer science. And the most popular solution to it has been known since 1938. It is the Fisher-Yates shuffle.
+Unlike the Microsoft shuffle, this algorithm actually shuffles the array randomly and has O(n) time complexity assuming you have a random number generator with O(1) complexity.
+The original fisher yates algorithm, described is 1938 goes something likes this:
+1. Write down the numbers from 1 through N.
+2. Pick a random number k between one and the number of unstruck numbers remaining (inclusive).
+3. Counting from the low end, strike out the kth number not yet struck out, and write it down at the end of a separate list.
+4. Repeat from step 2 until all the numbers have been struck out.
+5. The sequence of numbers written down in step 3 is now a random permutation of the original numbers.
+Source: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Fisher_and_Yates'_original_method
