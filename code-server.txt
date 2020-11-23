@@ -1,0 +1,46 @@
+Refrences - https://www.digitalocean.com/community/tutorials/how-to-set-up-the-code-server-cloud-ide-platform-on-ubuntu-20-04
+        - https://upcloud.com/community/tutorials/install-code-server-ubuntu-18-04/
+       
+       
+Update Server
+  - sudo apt update
+  - sudo apt upgrade -y
+  - sudo apt install libc6 libstdc++6
+  
+Installing code-server
+  - wget https://github.com/cdr/code-server/releases/download/v3.7.2/code-server-3.7.2-linux-amd64.tar.gz
+  - tar xvf code-server-3.7.2-linux-amd64.tar.gz // tar -xzvf code-server-3.7.2-linux-amd64.tar.gz
+  - sudo cp -r /root/code-server-3.2.0-linux-x86_64/* /usr/lib/code-server/
+  - sudo ln -s /usr/lib/code-server/code-server /usr/bin/code-server
+  - sudo mkdir /var/lib/code-server
+  - sudo nano /lib/systemd/system/code-server.service
+     >> Environment=PASSWORD=this_should_be_your_password
+  - sudo systemctl daemon-reload
+  - sudo systemctl start code-server
+  - sudo systemctl enable code-server
+  - sudo systemctl status code-server
+    >> This should show status code i.e active
+    
+    
+Nginx
+  - sudo apt install nginx
+  - sudo nano /etc/nginx/sites-available/code-server.conf
+      >>server_name your-domain.com;
+  - sudo ln -s /etc/nginx/sites-available/code-server.conf /etc/nginx/sites-enabled/code-server.conf
+  - sudo nginx -t (Testing Nginx Conf validity)
+  - sudo systemctl restart nginx // or
+      - sudo systemctl start nginx
+      - sudo systemctl enable nginx
+  - sudo systemctl status nginx
+  
+ Encrypt 
+- sudo apt install certbot python3-certbot-nginx
+- sudo ufw allow https
+- sudo certbot --nginx -d your-domain.com
+- sudo systemctl restart nginx
+
+
+
+
+
+
