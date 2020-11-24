@@ -34,13 +34,29 @@ Nginx
   - sudo systemctl status nginx
   
  Encrypt 
-- sudo apt install certbot python3-certbot-nginx
-- sudo ufw allow https
-- sudo certbot --nginx -d your-domain.com
-- sudo systemctl restart nginx
+  - sudo apt install certbot python3-certbot-nginx
+  - sudo ufw allow https
+  - sudo certbot --nginx -d your-domain.com
+  - sudo systemctl restart nginx
 
 
 
+ADDING SSH (reference https://www.freecodecamp.org/news/git-ssh-how-to/)
 
+Check for existing SSH key
+  - ls -al ~/.ssh
+  
+Generate
+  - mkdir $HOME/.ssh 
+  - ssh-keygen -t rsa -b 4096 -C your@email.com
+  
+Add your SSH key to ssh-agent
+- eval "$(ssh-agent -s)" # for Mac and Linux 
+- eval `ssh-agent -s # for Windows 
+- ssh-add ~/.ssh/id_rsa
 
+Add to Github
 
+test your authentication
+- ssh -T git@github.com
+  >> Hi your_user_name! You've successfully authenticated, but GitHub does not provide shell access
