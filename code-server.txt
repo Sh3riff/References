@@ -73,3 +73,8 @@ Add to Github
 test your authentication
 - ssh -T git@github.com
   >> Hi your_user_name! You've successfully authenticated, but GitHub does not provide shell access
+
+
+Install Node
+  - curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
