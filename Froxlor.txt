@@ -1,0 +1,54 @@
+References: https://websiteforstudents.com/how-to-install-froxlor-host-control-panel-on-ubuntu-18-04-with-apache2/
+          : https://www.vultr.com/docs/how-to-install-the-froxlor-server-management-panel-on-centos-7
+          
+###########First Way(Preferred & it solved the root access error at the end)
+
+-Step 0: Configure Ubuntu Local Host Domain
+  -open the Ubuntu local hosts file.
+    >> sudo nano /etc/hosts
+    >> 127.0.0.1 ns.sh3riff.me // domain mapping with public or local IP (include)
+  
+-Step 1: Install Apache2
+  - install
+    >> sudo apt update
+    >> sudo apt-get install apache2
+    
+  - Then
+    >> sudo systemctl stop apache2.service
+    >> sudo systemctl start apache2.service
+    >> sudo systemctl enable apache2.service
+    
+  - Ready
+    >> http://ns.sh3riff.me
+    
+-Step 2: Install MariaDB Database Server
+  - sudo apt-get install mariadb-server mariadb-client
+  - Then run
+    >> sudo systemctl stop mariadb.service
+    >> sudo systemctl start mariadb.service
+    >> sudo systemctl enable mariadb.service
+    >> sudo mysql_secure_installation
+  - test MariaDB
+    >> sudo mysql -u root -p
+    
+-Step 3: Install PHP 7.2 and Related Modules
+  - upgrade to PHP 7.2
+    >> sudo apt-get install software-properties-common
+    >> sudo add-apt-repository ppa:ondrej/php
+    >> sudo apt update
+  - install PHP 7.2 and related modules
+    >> sudo apt install php7.2 libapache2-mod-php7.2 php7.2-common php7.2-curl php7.2-posix php7.2-intl php7.2-mbstring php7.2-xmlrpc php7.2-mysql php7.2-gd php7.2-pgsql php7.2-xml php7.2-cli php7.2-imagick php7.2-bcmath php7.2-gmp php7.2-zip
+  
+  - PHP default config file for Apache2…
+    >> sudo nano /etc/php/7.2/apache2/php.ini
+       - file_uploads = On
+          allow_url_fopen = On
+          short_open_tag = On
+          memory_limit = 256M
+          upload_max_filesize = 100M
+          max_execution_time = 360
+          date.timezone = America/Chicago
+  - restart Apache2
+    >> sudo systemctl restart apache2.service
+
+..................................
