@@ -50,7 +50,6 @@ const userSchema = new Schema({
 
 
 
-
 ////////////////////////  How to optimize MongoDB & Mongoose for Performance  ////////////////////////
 https://itnext.io/performance-tips-for-mongodb-mongoose-190732a5d382
 
@@ -75,10 +74,16 @@ https://itnext.io/performance-tips-for-mongodb-mongoose-190732a5d382
         const [user, post] = await Promise.all([user.save(), post.save()])
 
     - Pro tips
-        While this may improve the performance on the api level, we’re still doing two requests to the database, so its even better to use insertMany() orbulkWrite() if you want to do multiple operations as a batch.
+        While this may improve the performance on the api level, we’re still doing two requests to the database, so its even better to use insertMany() or bulkWrite() if you want to do multiple operations as a batch.
 
 6. Cache/reuse mongoose connections
     - connect once at the beginning of your app and reuse the connection.
 
 7. Example Query
     - userWithIndex.find(user).select({name: 1, email:1, name: 1}).lean()
+
+////////////////////////  More  ////////////////////////
+
+8. Explicitly provide _id in of your document rather wasting it on random Id
+
+9. Use shorter field names.
