@@ -1,3 +1,4 @@
+///////////// Class Starts @ line 408 //////////////
 // factory function
 const carObj = color => ({color})
 let car_1 = carObj("red")
@@ -400,3 +401,157 @@ console.dir(redCart2.getColor())
 //         return this.color
 //     }
 // }
+
+
+
+
+class Car{
+    constructor(color, bodyType){
+        Object.assign(this, {color, bodyType})
+    }
+    static bodyType(car){
+        return car.bodyType
+    }
+    getColor(){
+        return this.color
+    }
+    getBodyType(){
+        return this.bodyType
+    }
+}
+
+let firstCar = new Car("red", "sedan")
+console.dir(Car.bodyType(firstCar))
+console.dir(firstCar.getColor())
+
+class SportCar extends Car{
+    constructor(engine, speed, ...args){
+        super(...args)
+        Object.assign(this, {engine, speed})
+    }
+    getEngine(){
+        return this.engine
+    }
+    getSpeed(){
+        return this.speed
+    }
+    getColor(){
+        return `custom made ${this.color}`
+    }
+}
+
+let SecondCar = new SportCar("V12", "256km/h", "orange", "sedan")
+console.dir(SecondCar.getSpeed())
+
+let [a, b, c] = "abc"; // ["a", "b", "c"]
+a
+b
+
+function name() {
+    for (let index = 0; index < arguments.length; index++) {
+        // const element = array[index];
+        console.log(arguments[index])
+    }
+}
+
+name(1,2,3,4,5)
+
+var makeCounter = function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  }
+};
+
+let rd = makeCounter()
+
+console.log(rd.increment())
+console.log(rd.increment())
+console.log(rd.value())
+
+
+var cars = ["BMW", "Volvo", "Saab", "Ford"];
+let index = 9;
+
+let sts = "rice"
+
+switch(sts){
+    case "rice":
+        console.log("carbohydrate")
+        break
+    case "beans":
+        console.log("protein")
+        break
+    default:
+        console.log("none")
+        break
+}
+
+const acc = {
+    fName: "john",
+    lName: "smith",
+    age: 10,
+    get fullName(){
+        return `${this.fName} ${this.lName}`
+    },
+    set fullName(value){
+        [this.fName, this.lName] = value.split(" ")
+    }
+}
+
+acc.fullName = 'mike lee'
+
+let ft = acc.fullName
+
+ft
+
+class Student{
+    constructor(fName, lName, age){
+        Object.assign(this, {fName, lName, age})
+    }
+    static Info(student){
+        return `${student.fName} ${student.lName} is ${student.age} years old`
+    }
+    get fullName(){
+        return `${this.fName} ${this.lName}`
+    }
+    set fullName(value){
+        [this.fName, this.lName] = value.split(" ")
+    }
+}
+
+const firstStudent = new Student("ade", "bisi", 20)
+
+firstStudent.fullName = "fola shade"
+
+let fs = firstStudent.fullName
+
+fs
+
+console.log(Student.Info(firstStudent))
+
+
+function* sampleGenerator(params) {
+    yield params * 1    
+    yield params * 2    
+    yield params * 3    
+    return params * 4    
+}
+
+const runGenerator = sampleGenerator(7)
+
+console.log(runGenerator.next())
+console.log(runGenerator.next())
+console.log(runGenerator.next())
+console.log(runGenerator.next())
