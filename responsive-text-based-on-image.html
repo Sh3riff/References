@@ -1,0 +1,22 @@
+<div class="box">
+   <img>
+   <h1>Lorem ipsum dolor ..</h1>
+</div>
+
+.box {
+  display: inline-block;
+}
+h1 {
+  width: 0;
+  min-width: 100%;
+}
+
+
+This trick rely on two things:
+  - We make the container (the box element) a shrink-to-fit element (its width is defined by its content). 
+    I used inline-block but it can be a float element, a table one, a flex item, etc.
+    
+  - We make our title having a width equal to 0 so it will not contribute to the container width. 
+    Our container will have its width defined only by the image. 
+    We add min-width: 100% to resize our title and make its width equal to the container width (the one defined previously with the image!). 
+    Yes it's a bit crazy or let's say magic 😉
