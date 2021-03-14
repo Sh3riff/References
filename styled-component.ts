@@ -13,3 +13,9 @@
   - const Whatever = styled.div`
 	    ${(props: MarginType) => props.margin});
     `;
+
+
+
+  - const Heading = styled.h1<{ active: boolean }>`
+     color: ${props => (props.active ? 'red' : 'blue')};
+    `;
