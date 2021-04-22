@@ -23,24 +23,25 @@ const RadioButton = ({radioData, operator}: radioProps) => {
               setNewValue(data.value);
               operator(data.value);
             }}>
-            <View key={data.value} style={styles.container}>
+            <View key={data.value} style={styles.unit}>
               <Text style={styles.radioText}>{data.tag}</Text>
-              <View style={(newValue === data.value) ? styles.selected : styles.radio} />
+              <View
+                style={newValue === data.value ? styles.selected : styles.radio}
+              />
             </View>
           </TouchableOpacity>
         );
       })}
-      <Text style={styles.testText}>{newValue}</Text>
     </View>
   );
 };
 export default RadioButton;
 
 const styles = StyleSheet.create({
-  container: {
+  unit: {
     width: wp('90%'),
     marginHorizontal: wp('4%'),
-    borderBottomColor: colors.Darker,
+    borderBottomColor: colors.dark,
     borderBottomWidth: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -49,14 +50,14 @@ const styles = StyleSheet.create({
     paddingBottom: RFValue(10, hp('100%')),
   },
   radioText: {
-    color: colors.Darker,
+    color: colors.dark,
     fontSize: RFValue(25, hp('100%')),
     fontWeight: '600',
   },
   radio: {
     width: RFValue(25, hp('100%')),
     height: RFValue(25, hp('100%')),
-    borderColor: colors.Darker,
+    borderColor: colors.dark,
     borderRadius: 50,
     borderWidth: 2,
   },
@@ -65,9 +66,5 @@ const styles = StyleSheet.create({
     height: RFValue(25, hp('100%')),
     borderRadius: 50,
     backgroundColor: colors.deepGreen,
-  },
-  testText: {
-    alignSelf: 'center',
-    fontSize: 15,
   },
 });
