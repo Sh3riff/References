@@ -24,6 +24,32 @@
     //    object must have same keys and each key must have same data type
 
 
+/////////////////////////////  Dynamic types  /////////////////////////////
+
+interface Example1 {
+    [key: string]: string // you absolutely donna know what the key value would be
+}
+
+type TypeOne = 'default' | 'custom';
+
+interface Example2 {
+    [key in TypeOne]: string // the key would be one of the types in TypeOne
+    // OR [key in 'default' | 'custom']: string
+}
+
+type TypeTwo {
+  id: number;
+  name: string;
+}
+
+interface Example3 {
+    [keyof TypeTwo]: string // the key would be one of the keys of object TypeTwo
+    // OR [key in keyof TypeTwo]: string
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+
 
 // explicit types
     // let name: string;
