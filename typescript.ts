@@ -43,8 +43,7 @@ type TypeTwo {
 }
 
 interface Example3 {
-    [keyof TypeTwo]: string // the key would be one of the keys of object TypeTwo
-    // OR [key in keyof TypeTwo]: string
+    [key in keyof TypeTwo]: string // the key would be one of the keys of object TypeTwo
 }
 
 
