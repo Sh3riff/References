@@ -37,7 +37,7 @@ interface Example2 {
     // OR [key in 'default' | 'custom']: string
 }
 
-type TypeTwo {
+type TypeTwo = {
   id: number;
   name: string;
 }
@@ -46,6 +46,11 @@ interface Example3 {
     [key in keyof TypeTwo]: string // the key would be one of the keys of object TypeTwo
 }
 
+enum Enum1 { A, B, C }
+
+interface Example3 {
+    [key in keyof typeof Enum1]: string // the key would be one of Enum1
+}
 
 //////////////////////////////////////////////////////////////////////////
 
