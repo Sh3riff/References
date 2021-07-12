@@ -46,7 +46,7 @@ export default class MyDocument extends Document {
     
 finally
     
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle, ThemeProvider, DefaultTheme } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -67,7 +67,7 @@ declare module "styled-components" {
     }
   }
 
-const theme = {
+const theme: DefaultTheme = {
   colors: {
     primary: "blue",
   },
