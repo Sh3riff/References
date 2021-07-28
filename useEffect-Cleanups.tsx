@@ -1,6 +1,36 @@
 https://dmitripavlutin.com/react-cleanup-async-effects/
 
 
+//////////////////////////////////////////  Axios  //////////////////////////////////////////
+
+import { useState, useEffect } from 'react';
+
+function MyComponent() {
+  const [value, setValue] = useState();
+
+  useEffect(() => {
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
+    (async () => {
+      try {
+        const { data } = await instance.get("/", {
+          cancelToken: source.token,
+        });
+      } catch (err) { 
+        // Axios gives us the “isCancel” method, which can be used to determine the cause of the request failing.
+        if (axios.isCancel(err)) {
+          return "axios request cancelled";
+        }
+        // Handle fetch error
+      }
+    })();
+    return () => source.cancel("axios request cancelled");
+  }, []);
+
+  // ...
+}
+
+
 //////////////////////////////////////////  Fetch requests  //////////////////////////////////////////
 
 import { useState, useEffect } from 'react';
