@@ -24,6 +24,9 @@ let nestedArr = [1, 2, [3, 4, [5, 6, [7, 8]]], [5, 6, [7, 8]]]
 //     return 0
 // }) // especially useful when the for alphabets with special ops
 
+// multiSample.sort((a, b) => a.age - b.age || a.name.localeCompare(b.name))
+// moreSample.sort((a, b) => a.age < b.age ? -1 : a.age > b.age ? 1 : 0)
+
 
 // sample.fill(4, 2, 5) // mutate the current array. takes 3 params "the value to fill with", "optional start index default 0", "optional end index default array.length"
 
