@@ -86,7 +86,7 @@ How to generate one in 3 steps?
           storeFile file('your_key_name.keystore')
           storePassword System.console().readLine("\nKeystore password:")
           keyAlias System.console().readLine("\nAlias: ")
-          keyPassword System.console().readLine("\Alias password: ")
+          keyPassword System.console().readLine("\nAlias password: ")
           }
         }
         buildTypes {
@@ -99,7 +99,7 @@ How to generate one in 3 steps?
 
   Step 3: Go to the root of the project in the terminal and run the below command:
 
-    react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug && cd ..
+    react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease && cd ..
 
   Step 4: You can find the generated APK at:
     at android/app/build/outputs/apk/app-release.apk
