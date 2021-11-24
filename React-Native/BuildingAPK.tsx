@@ -29,6 +29,63 @@ How to generate one in 3 steps?
 
 ///////////////////////////////////////  Release APK  ///////////////////////////////////////
 
+
+  Pre Step. Solving build duplicate error
+    -  Create folder "fixAndroid" in the "android" folder of your project  
+    -  Create file android-gradle-fix in the "fixAndroid" & add the code below
+
+        doLast {
+            def moveFunc = { resSuffix ->
+                File originalDir = file("${resourcesDir}/drawable-${resSuffix}")
+                if (originalDir.exists()) {
+                    File destDir = file("${resourcesDir}/drawable-${resSuffix}-v4")
+                    ant.move(file: originalDir, tofile: destDir)
+                }
+            }
+            moveFunc.curry("ldpi").call()
+            moveFunc.curry("mdpi").call()
+            moveFunc.curry("hdpi").call()
+            moveFunc.curry("xhdpi").call()
+            moveFunc.curry("xxhdpi").call()
+            moveFunc.curry("xxxhdpi").call()
+        }
+
+        // Set up inputs and outputs so gradle can cache the result
+
+    -  Create file android-release-fix.js in the "fixAndroid" folder you created & add the code below
+
+            const fs = require('fs')
+            try {
+                    var curDir = __dirname
+                    var rootDir = process.cwd()
+
+                    var file = `${rootDir}/node_modules/react-native/react.gradle`
+                    var dataFix = fs.readFileSync(`${curDir}/android-gradle-fix`, 'utf8')
+                    var data = fs.readFileSync(file, 'utf8')
+
+                    var doLast = "doLast \{"
+                    if (data.indexOf(doLast) !== -1) {
+                        throw "Already fixed."
+                    }
+
+                    var result = data.replace(/\/\/ Set up inputs and outputs so gradle can cache the result/g, dataFix);
+                    fs.writeFileSync(file, result, 'utf8')
+                    console.log('Android Gradle Fixed!')
+                } catch (error) {
+                    console.error(error)
+                }
+
+    -  Add script to package.json scripts section
+        
+        "postinstall": "node ./android/fixAndroid/android-release-fix.js"
+
+    -  This will find and insert content of “android-gradle-fix” file into node_modules/react-native/react.gradle.
+
+    -  Run npm install & rm -rf android/app/src/main/res/drawable-* from the root of your project.
+
+
+
+
   Step 1. Generate a keystore
     You will need a Java generated signing key which is a keystore file 
     used to generate a React Native executable binary for Android. 
@@ -99,7 +156,7 @@ How to generate one in 3 steps?
 
   Step 3: Go to the root of the project in the terminal and run the below command:
 
-    react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease && cd ..
+    "cd android && ./gradlew bundleRelease && cd .."
 
   Step 4: You can find the generated APK at:
     at android/app/build/outputs/apk/app-release.apk
