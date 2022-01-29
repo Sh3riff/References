@@ -1,3 +1,8 @@
+/**
+* https://chrisfrewin.medium.com/a-keyboard-avoiding-view-for-react-native-in-2021-196701ff0608
+* https://www.npmjs.com/package/@fullstackcraft/react-native-keyboard-shift
+*/
+
 import React, {PropsWithChildren, useEffect, useState} from 'react';
 import {
   Platform,
