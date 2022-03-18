@@ -1,19 +1,13 @@
-const validationSchema = Yup.object({
-  customerName: Yup.string("Enter a name")
-  .required("Name is required"),
-  customerEmailPhone: Yup.string("Enter your Email/Phone Number")
-                          // .email("Enter a valid email")
-                          .required("Email/Phone Number is required")
-                          .test('test-name', 'Enter Valid Phone/Email', 
-                            function(value) {
-                              const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+username: Yup.string().trim()
+      .test('test-username', 'Enter Valid Phone/Email', 
+        (value) => {
+          const emailRegex = /^([a-zA-Z0-9_\\.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-                              const phoneRegex = /^(\+91-|\+91|0)?\d{10}$/; // Change this regex based on requirement
-                              let isValidEmail = emailRegex.test(value);
-                              let isValidPhone = phoneRegex.test(value);
-                              if (!isValidEmail && !isValidPhone ){
-                                return false;
-                              }
-                              return true;
-                            })
-});
+          const phoneRegex = /^\+?\d{7,}$/;
+          let isValidEmail = value ? emailRegex.test(value) : false;
+          let isValidPhone = value ? phoneRegex.test(value) : false;
+          if (!isValidEmail && !isValidPhone ){
+            return false;
+          }
+          return true;
+      }),
