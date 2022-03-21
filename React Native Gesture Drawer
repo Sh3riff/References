@@ -1,0 +1,47 @@
+With React Native Hooks OPEN and CLOSE drawer in three simple steps
+
+1 Initialize Reference
+2 Assign Reference
+3 Use of Reference
+Code
+
+import React, { useRef, useEffect } from 'react'
+import { View, Button } from 'react-native'
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
+
+const DrawerLayoutExample = () => {
+
+    var refDrawer = useRef() // => Initialize Reference 
+
+    var renderDrawer = () => {
+        return (
+
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+                <Button
+                    onPress={() => refDrawer.current.closeDrawer()} // => Use of Reference
+                    title='Close Drawer'>
+                </Button>
+            </View>
+
+        );
+    };
+
+    return (
+        <DrawerLayout
+            ref={refDrawer} // => Assign Reference
+            drawerWidth={200}
+            drawerPosition={DrawerLayout.positions.Right}
+            drawerType="front"
+            drawerBackgroundColor="#ddd"
+            renderNavigationView={renderDrawer}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+                <Button
+                    onPress={() => refDrawer.current.openDrawer()} // => Use of Reference
+                    title='Open Drawer'>
+                </Button>
+            </View>
+        </DrawerLayout>
+    )
+}
+
+export default DrawerLayoutExample
