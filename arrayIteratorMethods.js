@@ -27,6 +27,33 @@ let nestedArr = [1, 2, [3, 4, [5, 6, [7, 8]]], [5, 6, [7, 8]]]
 // multiSample.sort((a, b) => a.age - b.age || a.name.localeCompare(b.name))
 // moreSample.sort((a, b) => a.age < b.age ? -1 : a.age > b.age ? 1 : 0)
 
+// Sorting decimal
+
+const arr = [ '.0', '.1', '.2', '.4', '.2.1', '.3', '.4.1', '.5', '.5.1.5' ];
+// lowest to highest
+const compare = (a, b) => {
+   if (a === b) {
+      return 0
+   };
+   const aArr = a.split("."), bArr = b.split(".");
+   for (let i = 0; i < Math.min(aArr.length, bArr.length); i++) {
+      if (parseInt(aArr[i]) < parseInt(bArr[i])) {
+         return -1
+      };
+      if (parseInt(aArr[i]) > parseInt(bArr[i])) {
+         return 1
+      };
+   }
+   if (aArr.length < bArr.length) {
+      return -1
+   };
+   if (aArr.length > bArr.length) {
+      return 1
+   };
+   return 0;
+};
+arr.sort(compare);
+
 
 // sample.fill(4, 2, 5) // mutate the current array. takes 3 params "the value to fill with", "optional start index default 0", "optional end index default array.length"
 
