@@ -3,3 +3,34 @@ npm i axios-auth-refresh
 or
 
 https://gist.github.com/Godofbrowser/bf118322301af3fc334437c683887c5f
+
+
+axios.interceptors.response.use(
+      response => response,
+      async error => {
+        const errorPath = error.config.url;
+        const errorStatus = error.response.status;
+        const thisRequest = error.config;
+        if (errorStatus === 401 && errorPath !== 'auth/refresh') {
+          try {
+            const {status, data: res} = await axios.post(
+              `${baseURL}auth/refresh`,
+              {headers: {Authorization: `Bearer ${refreshToken}`} },
+            );
+            if (status === 200) {
+              login(res.token);
+              thisRequest.headers.Authorization = `Bearer ${res.token.access}`;
+              return axios(thisRequest);
+            } else if (status === 401) {
+              return logout();
+            }
+          } catch (err) {
+            return Promise.reject(err);
+          }
+        }
+        if (errorStatus === 401 && errorPath === 'auth/refresh') {
+          return logout();
+        }
+        return Promise.reject(error);
+      },
+    );
