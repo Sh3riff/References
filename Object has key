@@ -1,0 +1,2 @@
+Object.keys(objectName).includes(keyValue)
+objectName.hasOwnProperty(keyValue)
