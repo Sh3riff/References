@@ -3,16 +3,23 @@
   - ssh -i /path/to/your/key/filename.pem ubuntu@ipaddress  
 
 
-## How to deploy node on EC2
+## How to deploy node on EC2 (Amazon Linux & Ubuntu)
   - Launch EC2 with required Security group & generate Key-pair
   - Connect tO SSH
   - Update Package (optional)
     ```
     sudo apt-get update
     ```
-  - Install Node
+  - Install Node (Amazon Linux)
     ```
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    sudo yum install -y gcc-c++ make
+    curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+    sudo yum install -y nodejs
+    ```
+    
+  - Install Node  (Ubuntu)
+    ```
+    curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
     sudo apt-get install -y nodejs
     ```
   - Include the app via github clone or in Shell
@@ -20,6 +27,35 @@
     ```
     sudo npm i -g pm2
     pm2 start index.js
+    ```
+  - Or use Systemd service services
+    ```sh
+    sudo vim /etc/systemd/system/NodeServer.service
+    ```
+    ```
+    [Unit]
+    Description=My Node Server
+    After=multi-user.target
+
+    [Service]
+    ExecStart=/usr/bin/node /home/ec2-user/lotr/server.js
+    Restart=always
+    RestartSec=10
+    StandardOutput=syslog
+    StandardError=syslog
+    SyslogIdentifier=my-node-server
+    User=ec2-user
+    EnvironmentFile=/home/ec2-user/lotr/app.env
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    ```sh
+    sudo systemctl enable NodeServer.service
+    sudo systemctl start NodeServer.service
+    ```
+    ```sh
+    sudo systemctl status NodeServer.service
     ```
   - Also Install Nginx (reverse-proxy), certificates etc
 
@@ -48,7 +84,11 @@
 
 
 ## Clone app from Github
-  - Install Git
+  - Install Git (Amazon Linux)
+    ```
+    sudo yum install -y git
+    ```
+  - Install Git (Ubuntu)  
     ```
     sudo apt-get install git
     ```
