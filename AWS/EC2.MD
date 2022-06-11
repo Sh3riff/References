@@ -57,7 +57,26 @@
     ```sh
     sudo systemctl status NodeServer.service
     ```
-  - Also Install Nginx (reverse-proxy), certificates etc
+  - Installing Nginx  
+    ```
+    sudo amazon-linux-extras install nginx1 -y
+    sudo systemctl enable nginx
+    sudo systemctl start nginx
+    ```
+    ```
+    sudo vim /etc/nginx/nginx.conf
+    ```
+    ```
+    server {
+      listen         80;
+      listen         [::]:80;
+      server_name    _;
+      location / {
+        proxy_pass http://localhost:8080;
+      }
+    }
+    ```
+  - Also certificates & any other thing etc
 
 
 ## Create App In Shell
