@@ -14,7 +14,7 @@ module.exports = {
 };
 ////////////////////////////////
 
-- run npx react-native link
+- npx react-native-asset (npx react-native link)
 
 - rebuild app
 
