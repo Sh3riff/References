@@ -38,7 +38,7 @@ For IOS update ios/ProjectName/Info.plist or Xcode info tab as follow
 ### Multi Environment
 - Open app gradle i.e android/app/build.gradle
 - navigate to android -> defaultConfig
-- comment out **applicationId "com.kwiveti"** and replace with **applicationId project.env.get("APP_ID")** that is get the applicationId from .env
+- comment out **applicationId "com.appdomain"** and replace with **applicationId project.env.get("APP_ID")** that is get the applicationId from .env
 - include **resValue "string", "build_config_package", "com.appdomain"** below this would help reference the original app during build
 - include **resValue "string", "app_name", project.env.get("APP_NAME")** that is get the app_name from .env
     ```
@@ -47,6 +47,7 @@ For IOS update ios/ProjectName/Info.plist or Xcode info tab as follow
     resValue "string", "build_config_package", "com.appdomain"
     resValue "string", "app_name", project.env.get("APP_NAME")
     ```
+- replace com.appdomain with you applicationId
 - finally comment out **<string name="app_name">App Name</string>** in res/values/strings.xml
 
 ### App versioning
