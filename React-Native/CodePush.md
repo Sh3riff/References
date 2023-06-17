@@ -97,7 +97,7 @@ npm i react-native-code-push
     import codePush from 'react-native-code-push';
     import App from './App';
 
-    AppRegistry.registerComponent(', () => codePush(App));
+    AppRegistry.registerComponent('appName', () => codePush(App));
     ``` 
   - With Config ([Config APIs](https://learn.microsoft.com/en-us/appcenter/distribution/codepush/rn-api-ref))
     ```
@@ -107,7 +107,7 @@ npm i react-native-code-push
 
     let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
 
-    AppRegistry.registerComponent(', () => codePush(codePushOptions)(MyApp));
+    AppRegistry.registerComponent('appName', () => codePush(codePushOptions)(MyApp));
     ``` 
   - Manual Update
     ```
