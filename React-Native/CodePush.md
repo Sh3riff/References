@@ -217,3 +217,8 @@ appcenter codepush deployment list -a <ownerName>/<appName> --displayKeys
 // --displayKeys or -k
 ```
 
+[Deployment Rollback](https://learn.microsoft.com/en-us/appcenter/distribution/codepush/cli#rolling-back-updates)
+```
+appcenter codepush rollback -a <ownerName>/<appName> <deploymentName>
+// optional --target-release v34 if you want to target other than the last deployment
+```
