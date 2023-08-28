@@ -67,6 +67,12 @@ location / {
 ```
 sudo nginx -t
 ```
+### Env Config
+```
+printenv
+printenv PORT
+export <NAME>='<value>' // export PORT='3000'
+``
 ### Domain & SSL Certificate and enable HTTPS
 
 
