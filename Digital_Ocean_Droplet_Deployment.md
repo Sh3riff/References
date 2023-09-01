@@ -33,6 +33,15 @@ cd <project folder>
 pm2 start index.js (or <entryfile>.js)
 // Set your app to start when even the server is rebooted
 pm2 startup ubuntu
+// More
+pm2 list // list all running applications
+pm2 describe <id|app_name>
+pm2 stop     <app_name|namespace|id|'all'|json_conf>
+pm2 restart  <app_name|namespace|id|'all'|json_conf>
+pm2 delete   <app_name|namespace|id|'all'|json_conf>
+
+
+pm2 reload all // Hot Reload allows to update an application without any downtime
 ```
 ### Enable ufw firewall
 ```
