@@ -77,6 +77,10 @@ location / {
 ```
 sudo nginx -t
 ```
+- Restart Nginx
+```
+sudo systemctl restart nginx.service
+```
 ### Env Config
 ```
 printenv
