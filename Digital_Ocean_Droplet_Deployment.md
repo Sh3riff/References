@@ -42,7 +42,7 @@ pm2 delete   <app_name|namespace|id|'all'|json_conf>
 
 pm2 logs [app_id]
 
-pm2 reload all // Hot Reload allows to update an application without any downtime
+pm2 reload all --update-env // Hot Reload allows to update an application without any downtime
 ```
 ### Enable ufw firewall
 ```
